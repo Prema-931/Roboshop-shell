@@ -46,6 +46,8 @@ sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf
 
 VALIDATE $? "allowing remote connections"
 
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf  
+VALIDATE $? "allowing remote connections"
 systemctl enable redis
 
 VALIDATE $? "enabled redis"
