@@ -29,7 +29,8 @@ else
      echo "You are root user"
 fi  # fi means reverse of if, indicating condition end
 
-dnf install golang -y
+dnf install golang -y  &>> $LOGFILE
+
 
 id roboshop   # if roboshop user does not exists, then it is failure
 if [ $? -ne 0 ]
@@ -45,38 +46,35 @@ mkdir /app
 
 VALIDATE $? "Creating app directory"
 
-curl -L -o /tmp/dispatch.zip https://roboshop-builds.s3.amazonaws.com/dispatch.zip
+curl -L -o /tmp/dispatch.zip https://roboshop-builds.s3.amazonaws.com/dispatch.zip  &>> $LOGFILE
 
-VALIDATE $? "Creating app directory"
+VALIDATE $? "Downloading dispatch"
 cd /app 
 
-unzip /tmp/dispatch.zip
+unzip -o /tmp/dispatch.zip  &>> $LOGFILE
 
-VALIDATE $? "Creating app directory"
+VALIDATE $? "unzipping dispatch"
 
-go mod init dispatch
-
-VALIDATE $? "Creating app directory"
-
+go mod init dispatch   
+ 
 go get
 
-VALIDATE $? "Creating app directory"
+go build   &>> $LOGFILE
 
-go build
-VALIDATE $? "Creating app directory"
+VALIDATE $? "installing dependencies"
 
-vim /etc/systemd/system/dispatch.service
+cp /home/centos/Roboshop-shell/dispatch.service /etc/systemd/system/dispatch.service   &>> $LOGFILE
 
-VALIDATE $? "Creating app directory"
+VALIDATE $? "Copying"
 
-systemctl daemon-reload
+systemctl daemon-reload   &>> $LOGFILE
 
-VALIDATE $? "Creating app directory"
+VALIDATE $? "daemon reload"
 
-systemctl enable dispatch 
+systemctl enable dispatch   &>> $LOGFILE
 
-VALIDATE $? "Creating app directory"
+VALIDATE $? "enable dispatch"
 
-systemctl start dispatch
+systemctl start dispatch   &>> $LOGFILE
 
-VALIDATE $? "Creating app directory"
+VALIDATE $? "start dispatch"
