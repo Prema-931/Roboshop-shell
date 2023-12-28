@@ -8,6 +8,7 @@ N="\e[0m"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
+MYSQL_HOST=mysql.daws76s.tech
 
 echo "script started executing at $TIMESTAMP" &>> $LOGFILE
 
@@ -86,7 +87,7 @@ dnf install mysql -y   &>> $LOGFILE
 
 VALIDATE $? " Installing MySQL client"
 
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pRoboShop@1 < /app/schema/shipping.sql    &>> $LOGFILE
+mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/schema/shipping.sql    &>> $LOGFILE
 
 VALIDATE $? "loading shipping data"
 
