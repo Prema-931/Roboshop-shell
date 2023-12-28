@@ -57,7 +57,7 @@ unzip -o /tmp/web.zip     &>> $LOGFILE
 
 VALIDATE $? "Unzipping web"
 
-cp /home/centos/roboshop-shell/roboshop.conf /etc/nginx/default.d/roboshop.conf    &>> $LOGFILE
+cp roboshop.conf /etc/nginx/default.d/roboshop.conf    &>> $LOGFILE
 
 VALIDATE $? "Copied roboshop reverse proxy config"
 
