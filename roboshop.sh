@@ -20,18 +20,18 @@ do
 done
 
      #create R53 record, make sure you delete existing record
-aws route53 change-resource-record-sets \
-    --hosted-zone-id "$HOSTED_ZONE_ID" \
+     aws route53 change-resource-record-sets \
+    --hosted-zone-id "Z041555216MWCX0YPB1EE" \
     --change-batch "{
         \"Changes\": [{
             \"Action\": \"UPSERT\",
             \"ResourceRecordSet\": {
-                \"Name\": \"$i.$DOMAIN_PATH\",
+                \"Name\": \"$i.daws76s.tech\",
                 \"Type\": \"A\",
                 \"TTL\": 1,
-                \"ResourceRecords\": [{\"Value\": \"$PRIVATE_IPADDRESS\"}]
+                \"ResourceRecords\": [{\"Value\": \"$IP_ADDRESS\"}]
             }
         }]
     }"
-    echo "record created successfully for $i : $i.$DOMAIN_PATH"
+    echo "record created successfully for $i : $i.daws76s.tech"
 
